@@ -12,7 +12,7 @@
   color: #ccc;
   height: 10px;
 }
-input:focus {
+input:focus, *:focus {
   outline: none;
 }
 .editor {
@@ -23,6 +23,12 @@ input:focus {
   padding-top: 25px;
 }
 input[type=submit] {
-  border: 2px solid #111;
   color: #111;
+  border:2px solid #333;
+  border-radius:16px;
+  padding:4px 12px;
+  margin:0 12px 12px 0;
+}
+#pass {
+  width: 30px;
 }

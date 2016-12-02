@@ -20,30 +20,57 @@
   <div class="container">
     <div class="row" id="rowtop">
       <div class="eleven columns">
-        <h4 class="E-title"><input type="text" placeholder="Title"></h4>
-        <h6 class="E-author"><input type="text" placeholder="Author"></h6>
-        <div class="editor">
-          <p>Hello World!</p>
-          <p>Some initial <strong>bold</strong> text</p>
-          <p><br></p>
+        <form>
+          <h4 class="E-title"><input type="text" name="title" placeholder="Title" autofocus="autofocus"></h4>
+          <h6 class="E-author"><input type="text" name="author" placeholder="Author"></h6>
+          <input name="cont" type="hidden">
+          <div class="editor">
+            <p>Hello World!</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p><br></p>
+          </div>
         </div>
-        <script>
-        var toolbarOptions = [
-          ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],
-          ['link', 'image', 'video'],
-          ['blockquote', 'code-block']
-        ];
-        var quill = new Quill('.editor', {
-          theme: 'snow',
-          modules: {
-            toolbar: toolbarOptions
+        <div class="one column">
+          <label for="pass">Edit password:</label>
+          <input type="password" name="pass" id="pass" autocomplete="off">
+          <input type="submit" value="Publish">
+        </form>
+      </div>
+      <script>
+      var toolbarOptions = [
+        ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],
+        ['link', 'image', 'video'],
+        ['blockquote', 'code-block']
+      ];
+      var quill = new Quill('.editor', {
+        theme: 'snow',
+        modules: {
+          toolbar: toolbarOptions
+        }
+      });
+      var form = document.querySelector('form');
+      form.onsubmit = function() {
+        var cont = document.querySelector('input[name=cont]');
+        cont.value = JSON.stringify(quill.getContents());
+        $.ajax({
+          type: "POST",
+          url: "process.php",
+          async: false,
+          data: $(form).serializeArray(),
+          success: function(data){
+            console.log(data);
+            return true;
+          },
+          complete: function() {},
+          error: function(xhr, textStatus, errorThrown) {
+            console.log('ajax loading error...');
+            return false;
           }
         });
-        </script>
-      </div>
-      <div class="one column">
-        <input type="submit" value="Publish">
-      </div>
+        console.log("Submitted", $(form).serializeArray());
+        return false;
+      };
+      </script>
     </div>
   </div>
 </body>
