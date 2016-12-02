@@ -1,0 +1,28 @@
+.E-title, .E-author {
+  margin-bottom: -10px;
+}
+.E-title input, .E-author input {
+  width: 100%;
+  border: 0px;
+}
+.E-title input {
+  font-weight: bold;
+}
+.E-author input {
+  color: #ccc;
+  height: 10px;
+}
+input:focus {
+  outline: none;
+}
+.editor {
+  width: 100%;
+  border: 0px;
+}
+#rowtop {
+  padding-top: 25px;
+}
+input[type=submit] {
+  border: 2px solid #111;
+  color: #111;
+}

@@ -8,7 +8,7 @@ $config = array(
     "Site_Description" => "",
 
     // Is the site offline? If true, a message will appear on the homepage
-    "Is_Offline" => true,
+    "Is_Offline" => false,
     // Offline site title
     "Is_Offline_Title" => "Site is offline...",
     // The message that will appear if the site offline
@@ -17,7 +17,7 @@ $config = array(
 );
 
 if($config["Is_Offline"]){
-    header("Location: offline.php");
+    include("offline.php");
     die();
 }
 ?>

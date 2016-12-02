@@ -10,14 +10,39 @@
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="//cdn.quilljs.com/1.1.5/quill.snow.css" rel="stylesheet">
+  <script src="//cdn.quilljs.com/1.1.5/quill.min.js"></script>
+  <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <div class="one-half column" style="margin-top: 25%">
-        <h4>Basic Page</h4>
-        <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+    <div class="row" id="rowtop">
+      <div class="eleven columns">
+        <h4 class="E-title"><input type="text" placeholder="Title"></h4>
+        <h6 class="E-author"><input type="text" placeholder="Author"></h6>
+        <div class="editor">
+          <p>Hello World!</p>
+          <p>Some initial <strong>bold</strong> text</p>
+          <p><br></p>
+        </div>
+        <script>
+        var toolbarOptions = [
+          ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],
+          ['link', 'image', 'video'],
+          ['blockquote', 'code-block']
+        ];
+        var quill = new Quill('.editor', {
+          theme: 'snow',
+          modules: {
+            toolbar: toolbarOptions
+          }
+        });
+        </script>
+      </div>
+      <div class="one column">
+        <input type="submit" value="Publish">
       </div>
     </div>
   </div>

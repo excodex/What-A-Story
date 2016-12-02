@@ -1,3 +1,4 @@
+<?php global $config; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
