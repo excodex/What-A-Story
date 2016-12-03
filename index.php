@@ -21,8 +21,8 @@
     <div class="row" id="rowtop">
       <div class="ten columns">
         <form>
-          <h4 class="E-title"><input type="text" name="title" placeholder="Title" autofocus="autofocus"></h4>
-          <h6 class="E-author"><input type="text" name="author" placeholder="Your name"></h6>
+          <h4 class="E-title"><input type="text" id="tb" name="title" placeholder="Title" autofocus="autofocus"></h4>
+          <h6 class="E-author"><input type="text" id="tb" name="author" placeholder="Your name"></h6>
           <input name="content" type="hidden">
           <div class="editor">
             <p>Your story...</p>

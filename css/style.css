@@ -1,9 +1,12 @@
 .E-title, .E-author {
   margin-bottom: -10px;
 }
-.E-title input, .E-author input, #edit_pass {
+#tb{
   width: 100%;
   border: 0px;
+}
+#edit_pass {
+  border: 1px solid #ddd;
 }
 .E-title input {
   font-weight: bold;
@@ -25,16 +28,13 @@ input:focus, *:focus {
 #rowtop {
   padding-top: 25px;
 }
-input[type=submit] {
+input[type=submit], .button {
   color: #111;
   border:2px solid #333;
   border-radius:16px;
 }
 #pass {
   width: 30px;
-}
-.ql-editor {
-  padding: 0 !important;
 }
 .ql-toolbar.ql-snow, .ql-container.ql-snow {
   border: 0 !important;

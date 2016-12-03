@@ -14,7 +14,9 @@ if (!empty($_GET["url_title"])) {
   }
 
   $from_url_title = $sql->real_escape_string($_GET["url_title"]);
-  $get_data = $sql->query("SELECT title, author, content, edit_pass, date FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
+  $get_data = $sql->query("SELECT title, author, content, edit_pass, date, hits FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
+  $get_hits = $get_data["hits"] +1;
+  $sql->query("UPDATE stories SET hits = '$get_hits' WHERE url_title = '$from_url_title'");
 } else {
   header("Location: index.php");
 }
@@ -33,7 +35,6 @@ if (!empty($_GET["url_title"])) {
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="//cdn.quilljs.com/1.1.5/quill.bubble.css">
   <script src="//cdn.quilljs.com/1.1.5/quill.min.js"></script>
-  <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
@@ -51,7 +52,7 @@ if (!empty($_GET["url_title"])) {
           <div class="two columns">
             <?php
             if (!empty($get_data["edit_pass"])) {
-              echo "<input type=\"submit\" value=\"Edit\">";
+              echo "<a class=\"button\" href=\"edit.php?url_title=$from_url_title\">Edit</a>";
             }
             ?>
           </form>
@@ -64,6 +65,6 @@ if (!empty($_GET["url_title"])) {
         quill.setContents(<?php echo $get_data["content"]; ?>);
       </script>
       </div>
-      </div>
-      </body>
-      </html>
+  </div>
+</body>
+</html>
