@@ -1,4 +1,22 @@
-<?php include_once("config.php"); ?>
+<?php
+include_once("config.php");
+// SQL Connect
+$sql = mysqli_connect($config["MySQL_host"],$config["MySQL_user"],$config["MySQL_pass"],$config["MySQL_db"]);
+if ($config["Debug"] && mysqli_connect_errno()){
+  die("Failed to connect to MySQL: " . mysqli_connect_error());
+}
+
+if (!empty($_GET["url_title"])) {
+  $ut_result = $sql->query("SELECT url_title FROM stories WHERE url_title = '" . $_GET["url_title"] . "'");
+  $url_title = $ut_result->num_rows > 0 ? true : false;
+
+  $from_url_title = $sql->real_escape_string($_GET["url_title"]);
+  $get_data = $sql->query("SELECT title, author, content, edit_pass, date FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
+
+} else {
+  header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +29,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/style.css">
-  <link href="//cdn.quilljs.com/1.1.5/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.quilljs.com/1.1.5/quill.bubble.css">
   <script src="//cdn.quilljs.com/1.1.5/quill.min.js"></script>
   <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -21,9 +39,8 @@
     <div class="row" id="rowtop">
       <div class="eleven columns">
         <form>
-          <h4 class="E-title"><input type="text" name="title" placeholder="Title" autofocus="autofocus"></h4>
-          <h6 class="E-author"><input type="text" name="author" placeholder="Author"></h6>
-          <input name="content" type="hidden">
+          <h4 class="E-title"><?php echo $get_data["title"]; ?></h4>
+          <h6 class="E-author"><?php echo $get_data["author"]; ?></h6>
           <div class="editor">
             <p>Hello World!</p>
             <p>Some initial <strong>bold</strong> text</p>
@@ -32,22 +49,22 @@
         </div>
         <div class="one column">
           <label for="edit_pass">Edit password:</label>
-          <input type="password" name="edit_pass" id="edit_pass" autocomplete="off">
-          <input type="submit" value="Publish">
+          <?php
+          if (!empty($get_data["edit_pass"])) {
+            echo "<input type=\"submit\" value=\"Edit\">";
+          }
+          ?>
         </form>
       </div>
       <script>
-      var toolbarOptions = [
-        ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],
-        ['link', 'image', 'video'],
-        ['blockquote', 'code-block']
-      ];
       var quill = new Quill('.editor', {
-        theme: 'snow',
-        modules: {
-          toolbar: toolbarOptions
-        }
+        theme: 'bubble',
+        readOnly: true
       });
+      quill.setContents([
+        <?php echo $get_data["content"]; ?>
+        { insert: '\n' }
+      ]);
       var form = document.querySelector('form');
       form.onsubmit = function() {
         var content = document.querySelector('input[name=content]');
@@ -58,7 +75,8 @@
           async: false,
           data: $(form).serializeArray(),
           success: function(data){
-            window.location.href = data;
+            console.log(data);
+            return true;
           },
           complete: function() {},
           error: function(xhr, textStatus, errorThrown) {
@@ -69,7 +87,7 @@
         return false;
       };
       </script>
-    </div>
-  </div>
-</body>
-</html>
+      </div>
+      </div>
+      </body>
+      </html>

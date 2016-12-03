@@ -10,7 +10,7 @@
 }
 .E-author input {
   color: #ccc;
-  height: 10px;
+  height: 20px;
 }
 input:focus, *:focus {
   outline: none;
@@ -26,8 +26,6 @@ input[type=submit] {
   color: #111;
   border:2px solid #333;
   border-radius:16px;
-  padding:4px 12px;
-  margin:0 12px 12px 0;
 }
 #pass {
   width: 30px;
