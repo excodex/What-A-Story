@@ -1,0 +1,9 @@
+Options -Multiviews
+
+RewriteEngine On
+RewriteBase /
+
+# Specify search friendly URLs
+RewriteRule ^new$ /index.php [L]
+RewriteRule ^([a-z]+)$ /view.php?url_title=$1 [L]
+RewriteRule ^edit/([a-z]+)$ /edit.php?url_title=$1 [L]

@@ -39,7 +39,7 @@ if (!empty($_GET["url_title"])) {
 <body>
   <div class="container">
     <div class="row" id="rowtop">
-      <div class="eleven columns">
+      <div class="ten columns">
         <form>
           <h4 class="E-title"><strong><?php echo $get_data["title"]; ?></strong></h4>
           <br>
@@ -48,7 +48,7 @@ if (!empty($_GET["url_title"])) {
             <?php echo date("F j, Y", strtotime($get_data["date"])); ?></h6>
             <div class="editor"></div>
           </div>
-          <div class="one column">
+          <div class="two columns">
             <?php
             if (!empty($get_data["edit_pass"])) {
               echo "<input type=\"submit\" value=\"Edit\">";

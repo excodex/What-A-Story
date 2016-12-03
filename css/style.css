@@ -1,7 +1,7 @@
 .E-title, .E-author {
   margin-bottom: -10px;
 }
-.E-title input, .E-author input {
+.E-title input, .E-author input, #edit_pass {
   width: 100%;
   border: 0px;
 }
@@ -34,7 +34,10 @@ input[type=submit] {
   width: 30px;
 }
 .ql-editor {
-  paddin: 0 !important;
+  padding: 0 !important;
+}
+.ql-toolbar.ql-snow, .ql-container.ql-snow {
+  border: 0 !important;
 }
 .ql-container {
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;

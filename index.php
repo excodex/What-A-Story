@@ -19,18 +19,16 @@
 <body>
   <div class="container">
     <div class="row" id="rowtop">
-      <div class="eleven columns">
+      <div class="ten columns">
         <form>
           <h4 class="E-title"><input type="text" name="title" placeholder="Title" autofocus="autofocus"></h4>
-          <h6 class="E-author"><input type="text" name="author" placeholder="Author"></h6>
+          <h6 class="E-author"><input type="text" name="author" placeholder="Your name"></h6>
           <input name="content" type="hidden">
           <div class="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br></p>
+            <p>Your story...</p>
           </div>
         </div>
-        <div class="one column">
+        <div class="two columns">
           <label for="edit_pass">Edit password:</label>
           <input type="password" name="edit_pass" id="edit_pass" autocomplete="off">
           <input type="submit" value="Publish">
