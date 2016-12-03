@@ -3,7 +3,6 @@ Options -Multiviews
 RewriteEngine On
 RewriteBase /
 
-# Specify search friendly URLs
 RewriteRule ^new$ /index.php [L]
-RewriteRule ^([A-z0-9]+)$ /view.php?url_title=$1 [L]
-RewriteRule ^edit/([A-z0-9]+)$ /edit.php?url_title=$1 [L]
+RewriteRule ^([A-z0-9\-]+)$ /view.php?url_title=$1 [L]
+RewriteRule ^edit/([A-z0-9\-]+)$ /edit.php?url_title=$1 [L]
