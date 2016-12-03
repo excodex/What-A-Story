@@ -9,10 +9,12 @@ if ($config["Debug"] && mysqli_connect_errno()){
 if (!empty($_GET["url_title"])) {
   $ut_result = $sql->query("SELECT url_title FROM stories WHERE url_title = '" . $_GET["url_title"] . "'");
   $url_title = $ut_result->num_rows > 0 ? true : false;
+  if (!$url_title) {
+    header("Location: index.php");
+  }
 
   $from_url_title = $sql->real_escape_string($_GET["url_title"]);
   $get_data = $sql->query("SELECT title, author, content, edit_pass, date FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
-
 } else {
   header("Location: index.php");
 }
@@ -39,53 +41,27 @@ if (!empty($_GET["url_title"])) {
     <div class="row" id="rowtop">
       <div class="eleven columns">
         <form>
-          <h4 class="E-title"><?php echo $get_data["title"]; ?></h4>
-          <h6 class="E-author"><?php echo $get_data["author"]; ?></h6>
-          <div class="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br></p>
+          <h4 class="E-title"><strong><?php echo $get_data["title"]; ?></strong></h4>
+          <br>
+          <h6 class="V-author"><?php echo $get_data["author"]; ?>
+            &nbsp;&times;&nbsp;
+            <?php echo date("F j, Y", strtotime($get_data["date"])); ?></h6>
+            <div class="editor"></div>
           </div>
+          <div class="one column">
+            <?php
+            if (!empty($get_data["edit_pass"])) {
+              echo "<input type=\"submit\" value=\"Edit\">";
+            }
+            ?>
+          </form>
         </div>
-        <div class="one column">
-          <label for="edit_pass">Edit password:</label>
-          <?php
-          if (!empty($get_data["edit_pass"])) {
-            echo "<input type=\"submit\" value=\"Edit\">";
-          }
-          ?>
-        </form>
-      </div>
-      <script>
-      var quill = new Quill('.editor', {
-        theme: 'bubble',
-        readOnly: true
-      });
-      quill.setContents([
-        <?php echo $get_data["content"]; ?>
-        { insert: '\n' }
-      ]);
-      var form = document.querySelector('form');
-      form.onsubmit = function() {
-        var content = document.querySelector('input[name=content]');
-        content.value = JSON.stringify(quill.getContents());
-        $.ajax({
-          type: "POST",
-          url: "process.php",
-          async: false,
-          data: $(form).serializeArray(),
-          success: function(data){
-            console.log(data);
-            return true;
-          },
-          complete: function() {},
-          error: function(xhr, textStatus, errorThrown) {
-            console.log('Ajax error...');
-            return false;
-          }
+        <script>
+        var quill = new Quill('.editor', {
+          theme: 'bubble',
+          readOnly: true
         });
-        return false;
-      };
+        quill.setContents(<?php echo $get_data["content"]; ?>);
       </script>
       </div>
       </div>

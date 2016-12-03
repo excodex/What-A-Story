@@ -12,6 +12,9 @@
   color: #ccc;
   height: 20px;
 }
+.V-author {
+  color: #ccc;
+}
 input:focus, *:focus {
   outline: none;
 }
@@ -29,4 +32,10 @@ input[type=submit] {
 }
 #pass {
   width: 30px;
+}
+.ql-editor {
+  paddin: 0 !important;
+}
+.ql-container {
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
