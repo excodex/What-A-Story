@@ -11,7 +11,7 @@ $config = array(
   "Site_Language" => "en",
 
   // Is the site offline? If true, a message will appear on the homepage
-  "Is_Offline" => true,
+  "Is_Offline" => false,
 
   // MySQL login details
   "MySQL_host" => "localhost",
