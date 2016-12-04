@@ -11,11 +11,7 @@ $config = array(
   "Site_Language" => "en",
 
   // Is the site offline? If true, a message will appear on the homepage
-  "Is_Offline" => false,
-  // Offline site title
-  "Is_Offline_Title" => "Site is offline...",
-  // The message that will appear if the site offline
-  "Is_Offline_Message" => "We'll back soon!",
+  "Is_Offline" => true,
 
   // MySQL login details
   "MySQL_host" => "localhost",
@@ -32,6 +28,6 @@ $config = array(
 
 );
 date_default_timezone_set($config['Timezone']);
+require("lang/" . $config["Site_Language"] . ".php");
 if($config["Is_Offline"]){ include("offline.php"); die(); }
-include_once("lang/" . $config["Site_Language"] . ".php");
 ?>
