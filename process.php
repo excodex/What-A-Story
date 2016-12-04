@@ -4,26 +4,16 @@ include_once("config.php");
 // SQL Connect
 $sql = mysqli_connect($config["MySQL_host"],$config["MySQL_user"],$config["MySQL_pass"],$config["MySQL_db"]);
 if ($config["Debug"] && mysqli_connect_errno()){
-    die("Failed to connect to MySQL: " . mysqli_connect_error());
+  die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
-/*
-CREATE TABLE stories` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(50) NOT NULL ,
-  `url_title` VARCHAR(40) NOT NULL ,
-  `author` VARCHAR(20) NOT NULL ,
-  `content` TEXT NOT NULL ,
-  `edit_pass` VARCHAR(255) NOT NULL ,
-  `date` DATETIME NOT NULL ,
-  `hits` INT(11) NOT NULL ,
-  PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB;
-*/
+
 if (!empty($_POST)) {
-  $stmt = $sql->prepare("INSERT INTO stories (title, url_title, author, content, edit_pass, date, hits) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  // Insert into database
+  $stmt = $sql->prepare("INSERT INTO stories (title, url_title, author, content, date, hits) VALUES (?, ?, ?, ?, ?, ?)");
   $title = $sql->real_escape_string($_POST["title"]);
   $title = !empty($title) ? $title : "Untitled";
 
+  // Generate SEO URL
   $ut_recipe = strlen($title) > 30 ? substr($title, 0, 30) . "-" . date("m-d") : $title . "-" . date("m-d");
 
   $ut_result = $sql->query("SELECT url_title FROM stories WHERE url_title='$ut_recipe'");
@@ -36,18 +26,17 @@ if (!empty($_POST)) {
   $author = $sql->real_escape_string($_POST["author"]);
   $author = !empty($author) ? $author : "Anonymous";
   $content = $_POST["content"];
-  $edit_pass = !empty($_POST["edit_pass"]) ? password_hash($_POST["edit_pass"], PASSWORD_DEFAULT) : "";
   $date = date("Y-m-d H:i:s");
   $hits = 0;
 
-  $stmt->bind_param("ssssssi", $title, $url_title, $author, $content, $edit_pass, $date, $hits);
+  $stmt->bind_param("sssssi", $title, $url_title, $author, $content, $date, $hits);
   if ($stmt->execute()) {
-    echo "view.php?url_title=" . $url_title;
+    echo $url_title;
     die();
   }
   $stmt->close();
 } else {
-  echo "index.php";
+  echo "new";
   die();
 }
 mysqli_close($sql);

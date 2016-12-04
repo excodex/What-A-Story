@@ -17,7 +17,7 @@ if (!empty($_GET["url_title"])) {
 
   $from_url_title = $sql->real_escape_string($_GET["url_title"]);
   // Get data from database
-  $get_data = $sql->query("SELECT title, author, content, edit_pass, date, hits FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
+  $get_data = $sql->query("SELECT title, author, content, date, hits FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
   // Add +1 to hits in database since someone viewed the story
   $get_hits = $get_data["hits"] +1;
   $sql->query("UPDATE stories SET hits = '$get_hits' WHERE url_title = '$from_url_title'");
@@ -56,15 +56,15 @@ mysqli_close($sql);
             <div class="editor"></div>
           </div>
           <div class="one column"></div>
-          </form>
+        </form>
         <script>
         var quill = new Quill('.editor', {
           theme: 'bubble',
           readOnly: true
         });
         quill.setContents(<?php echo $get_data["content"]; ?>);
-      </script>
-      </div>
-  </div>
-</body>
-</html>
+        </script>
+        </div>
+        </div>
+        </body>
+        </html>

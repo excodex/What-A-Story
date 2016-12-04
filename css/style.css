@@ -1,16 +1,9 @@
 .E-title, .E-author {
   margin-bottom: -10px;
 }
-.C-author {
-  padding: 10px 0;
-  margin-bottom: 0;
-}
 #tb{
   width: 100%;
   border: 0px;
-}
-#edit_pass {
-  border: 1px solid #ddd;
 }
 .E-title input {
   font-weight: bold;
@@ -36,13 +29,6 @@ input[type=submit], .button {
   color: #111;
   border:2px solid #333;
   border-radius:16px;
-}
-#edit_pass {
-  width: 120px;
-}
-#error_message {
-  color: red;
-  padding-bottom: 10px;
 }
 .ql-toolbar.ql-snow, .ql-container.ql-snow {
   border: 0 !important;

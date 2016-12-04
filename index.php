@@ -21,17 +21,17 @@
     <div class="row" id="rowtop">
       <div class="ten columns">
         <form>
-          <h4 class="E-title"><input type="text" id="tb" name="title" placeholder="Title" autofocus="autofocus"></h4>
-          <h6 class="E-author"><input type="text" id="tb" name="author" placeholder="Your name"></h6>
+          <h4 class="E-title"><input type="text" id="tb" name="title" placeholder="<?php echo $l["index_Title"]; ?>" autofocus="autofocus"></h4>
+          <h6 class="E-author"><input type="text" id="tb" name="author" placeholder="<?php echo $l["index_Your_Name"]; ?>"></h6>
           <input name="content" type="hidden">
           <div class="editor">
-            <p>Your story...</p>
+            <p><?php echo $l["index_Your_Story"]; ?></p>
           </div>
         </div>
         <div class="two columns">
-          <input type="submit" value="Publish">
+          <input type="submit" value="<?php echo $l["index_Publish"]; ?>">
         </div>
-        </form>
+      </form>
       <script>
       var toolbarOptions = [
         ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],
@@ -58,7 +58,7 @@
           },
           complete: function() {},
           error: function(xhr, textStatus, errorThrown) {
-            console.log('Ajax error...');
+            console.log('<?php echo $l["index_Ajax_error"]; ?>');
             return false;
           }
         });
