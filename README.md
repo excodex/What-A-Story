@@ -19,7 +19,8 @@ Used stuff:
 
 ----------
 **Minimum Requirements:**
-PHP 5.0.7 or newer
-MySQL, InnoDB
+
+ - PHP 5.0.7 or newer
+ - MySQL 5 with InnoDB support
 
 *Have fun!*
