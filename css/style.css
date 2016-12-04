@@ -1,6 +1,10 @@
 .E-title, .E-author {
   margin-bottom: -10px;
 }
+.C-author {
+  padding: 10px 0;
+  margin-bottom: 0;
+}
 #tb{
   width: 100%;
   border: 0px;
@@ -33,8 +37,12 @@ input[type=submit], .button {
   border:2px solid #333;
   border-radius:16px;
 }
-#pass {
-  width: 30px;
+#edit_pass {
+  width: 120px;
+}
+#error_message {
+  color: red;
+  padding-bottom: 10px;
 }
 .ql-toolbar.ql-snow, .ql-container.ql-snow {
   border: 0 !important;

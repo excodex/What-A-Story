@@ -23,7 +23,9 @@ $config = array(
     // Is debug enabled?
     "Debug" => true,
     // Current timezone
-    "Timezone" => "Europe/Budapest"
+    "Timezone" => "Europe/Budapest",
+    // Date show type on view page
+    "DateShowTypeView" => "F j, Y"
 
 );
 date_default_timezone_set($config['Timezone']);

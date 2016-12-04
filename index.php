@@ -29,11 +29,9 @@
           </div>
         </div>
         <div class="two columns">
-          <label for="edit_pass">Edit password:</label>
-          <input type="password" name="edit_pass" id="edit_pass" autocomplete="off">
           <input type="submit" value="Publish">
+        </div>
         </form>
-      </div>
       <script>
       var toolbarOptions = [
         ['bold', 'italic', { 'header': 1 }, { 'header': 2 }],

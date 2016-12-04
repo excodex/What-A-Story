@@ -22,15 +22,19 @@ CREATE TABLE stories` (
 if (!empty($_POST)) {
   $stmt = $sql->prepare("INSERT INTO stories (title, url_title, author, content, edit_pass, date, hits) VALUES (?, ?, ?, ?, ?, ?, ?)");
   $title = $sql->real_escape_string($_POST["title"]);
+  $title = !empty($title) ? $title : "Untitled";
 
-  $ut_result = $sql->query("SELECT url_title FROM stories");
+  $ut_recipe = strlen($title) > 30 ? substr($title, 0, 30) . "-" . date("m-d") : $title . "-" . date("m-d");
+
+  $ut_result = $sql->query("SELECT url_title FROM stories WHERE url_title='$ut_recipe'");
   if ($ut_result->num_rows > 0) {
     $url_title = strlen($title) > 30 ? substr($title, 0, 30) . "-" . date("m-d") . $ut_result->num_rows : $title . "-" . date("m-d") . "-" . $ut_result->num_rows;
   } else {
-    $url_title = strlen($title) > 30 ? substr($title, 0, 30) . "-" . date("m-d") : $title . "-" . date("m-d");
+    $url_title = $ut_recipe;
   }
 
   $author = $sql->real_escape_string($_POST["author"]);
+  $author = !empty($author) ? $author : "Anonymous";
   $content = $_POST["content"];
   $edit_pass = !empty($_POST["edit_pass"]) ? password_hash($_POST["edit_pass"], PASSWORD_DEFAULT) : "";
   $date = date("Y-m-d H:i:s");
@@ -39,10 +43,12 @@ if (!empty($_POST)) {
   $stmt->bind_param("ssssssi", $title, $url_title, $author, $content, $edit_pass, $date, $hits);
   if ($stmt->execute()) {
     echo "view.php?url_title=" . $url_title;
+    die();
   }
   $stmt->close();
 } else {
   echo "index.php";
+  die();
 }
 mysqli_close($sql);
 ?>

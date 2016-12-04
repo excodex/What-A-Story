@@ -6,20 +6,26 @@ if ($config["Debug"] && mysqli_connect_errno()){
   die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
+// If there is no input to associate in mysql, then go home
 if (!empty($_GET["url_title"])) {
   $ut_result = $sql->query("SELECT url_title FROM stories WHERE url_title = '" . $_GET["url_title"] . "'");
   $url_title = $ut_result->num_rows > 0 ? true : false;
   if (!$url_title) {
     header("Location: index.php");
+    die();
   }
 
   $from_url_title = $sql->real_escape_string($_GET["url_title"]);
+  // Get data from database
   $get_data = $sql->query("SELECT title, author, content, edit_pass, date, hits FROM stories WHERE url_title = '$from_url_title'")->fetch_assoc();
+  // Add +1 to hits in database since someone viewed the story
   $get_hits = $get_data["hits"] +1;
   $sql->query("UPDATE stories SET hits = '$get_hits' WHERE url_title = '$from_url_title'");
 } else {
   header("Location: index.php");
+  die();
 }
+mysqli_close($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,23 +46,17 @@ if (!empty($_GET["url_title"])) {
 <body>
   <div class="container">
     <div class="row" id="rowtop">
-      <div class="ten columns">
+      <div class="eleven columns">
         <form>
           <h4 class="E-title"><strong><?php echo $get_data["title"]; ?></strong></h4>
           <br>
           <h6 class="V-author"><?php echo $get_data["author"]; ?>
             &nbsp;&times;&nbsp;
-            <?php echo date("F j, Y", strtotime($get_data["date"])); ?></h6>
+            <?php echo date($config["DateShowTypeView"], strtotime($get_data["date"])); ?></h6>
             <div class="editor"></div>
           </div>
-          <div class="two columns">
-            <?php
-            if (!empty($get_data["edit_pass"])) {
-              echo "<a class=\"button\" href=\"edit.php?url_title=$from_url_title\">Edit</a>";
-            }
-            ?>
+          <div class="one column"></div>
           </form>
-        </div>
         <script>
         var quill = new Quill('.editor', {
           theme: 'bubble',
