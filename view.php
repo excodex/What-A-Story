@@ -25,6 +25,9 @@ if (!empty($_GET["url_title"])) {
   header("Location: index.php");
   die();
 }
+$og_title = strlen($get_data["title"]) > 36 ? substr($get_data["title"], 0, 36) . " ..." : $get_data["title"];
+$og_description = strlen($get_data["content"]) > 106 ? substr($get_data["content"], 0, 106) . " ..." : $get_data["content"];
+$og_author = $get_data["author"];
 mysqli_close($sql);
 ?>
 <!DOCTYPE html>
@@ -35,6 +38,13 @@ mysqli_close($sql);
   <meta name="description" content="<?php echo $config["Site_Description"]; ?>">
   <meta name="author" content="<?php echo $config["Site_Author"]; ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta property="og:site_name" content="<?php echo $config["Site_Title"]; ?>">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="<?php echo $og_title; ?>">
+  <meta property="og:description" content="<?php echo $og_description; ?>">
+  <meta property="article:published_time" content="<?php echo date("Y-m-d", strtotime($get_data["date"])) . "T" . date("H:i:s", strtotime($get_data["date"])) . "+0000"; ?>">
+  <meta property="article:author" content="<?php echo $og_author; ?>">
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
@@ -64,7 +74,7 @@ mysqli_close($sql);
         });
         quill.setContents(<?php echo $get_data["content"]; ?>);
         </script>
-        </div>
-        </div>
-        </body>
-        </html>
+    </div>
+  </div>
+</body>
+</html>

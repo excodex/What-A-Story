@@ -7,6 +7,7 @@
   <meta name="description" content="<?php echo $config["Site_Description"]; ?>">
   <meta name="author" content="<?php echo $config["Site_Author"]; ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
